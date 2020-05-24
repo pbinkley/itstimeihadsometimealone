@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>itstimeihadsometimealone</title>
+        <style type="text/css">
+            a {
+                text-decoration: none;
+            }
+            .highlight {
+                background-color: coral;
+            }
+        </style>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/3.1.0/mustache.js"></script>
+    </head>
+    <body>
+        <h1>itstimeihadsometimealone</h1>
+
+        <div id="tweets"></div>
+
+        <script id="tweetSpan" type="x-tmpl-mustache">
+            <span id="{{ id }}" title="{{ user }}: {{ text }}" class="user_{{ user }}">
+                <a href="https://twitter.com/{{ user }}/status/{{ id }}" target="_blank">
+                    {{ type }}
+                </a>
+            </span>
+        </script>
+
+        <script>
+            var tweetTemplate = document.getElementById('tweetSpan').innerHTML;
+
+            function renderTweet(div, tweetJson) {
+                div.innerHTML += Mustache.render(tweetTemplate, JSON.parse(tweetJson))
+            }
+
+            var ws = new WebSocket("ws://127.0.0.1:5678/"),
+                tweets = document.getElementById("tweets");
+            ws.onmessage = function (event) {
+                renderTweet(tweets, event.data)
+            };
+        </script>
+    </body>
+</html>
+

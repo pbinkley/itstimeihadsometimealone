@@ -2,3 +2,4 @@ tqdm
 tweepy
 termcolor
 python-dotenv
+websockets

@@ -1,3 +1,4 @@
 Pipfile*
 .env
 *.csv
+__pycache__
