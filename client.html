@@ -8,10 +8,28 @@
                 text-decoration: none;
             }
             .highlight {
-                background-color: coral;
+                background-color: darkgreen;
+                padding-color: darkgreen;
+            }
+            span {
+                border: 2px solid white;
+                margin: 1px solid white;
+                padding: 1px solid white;
+            }
+            span.media_true {
+                border: 1px solid black;
             }
         </style>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/3.1.0/mustache.js"></script>
+        <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+        <script>
+            function highlight_user(user) {
+                $(".user_" + user).addClass("highlight")
+            }
+            function unhighlight_user(user) {
+                $(".user_" + user).removeClass("highlight")
+            }
+        </script>
     </head>
     <body>
         <h1>itstimeihadsometimealone</h1>
@@ -19,10 +37,9 @@
         <div id="tweets"></div>
 
         <script id="tweetSpan" type="x-tmpl-mustache">
-            <span id="{{ id }}" title="{{ user }}: {{ text }}" class="user_{{ user }}">
-                <a href="https://twitter.com/{{ user }}/status/{{ id }}" target="_blank">
-                    {{ type }}
-                </a>
+            <span id="{{ id }}" title="{{ user }}: {{ text }}" class="user_{{ user }} media_{{ media }}"
+                onmouseover="highlight_user('{{ user }}')" onmouseout="unhighlight_user('{{ user }}')">
+                <a href="https://twitter.com/{{ user }}/status/{{ id }}" target="_blank">{{ type }}</a>
             </span>
         </script>
 
@@ -39,6 +56,7 @@
                 renderTweet(tweets, event.data)
             };
         </script>
+
     </body>
 </html>
 

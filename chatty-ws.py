@@ -62,7 +62,8 @@ async def server(websocket, path):
                     "type": type,
                     "id": status.id_str,
                     "user": user,
-                    "text": status.text
+                    "text": status.text,
+                    "media": ("media" in status.entities)
                 }
                 print("Sending " + user + ": " + status.id_str)
                 await websocket.send(json.dumps(message))
